@@ -84,6 +84,20 @@ def comment() -> Comment:
 
 
 @pytest.fixture
+def second_comment() -> Comment:
+    yield Comment.from_response_json(
+        {
+            "postId": 2,
+            "id": 7,
+            "name": "repellat consequatur praesentium vel minus molestias voluptatum",
+            "email": "Dallas@ole.me",
+            "body": "maiores sed dolores similique labore et inventore et\nquasi temporibus esse sunt id et\n"
+                    "eos voluptatem aliquam\naliquid ratione corporis molestiae mollitia quia et magnam dolor"
+        }
+    )
+
+
+@pytest.fixture
 def photo() -> Photo:
     yield Photo.from_response_json(
         {
@@ -107,3 +121,30 @@ def photo_after_add() -> Photo:
             "thumbnailUrl": "https://test/thumbnalie"
         }
     )
+
+
+@pytest.fixture
+def photo_after_put() -> Photo:
+    yield Photo.from_response_json(
+        {
+            "albumId": 1,
+            "id": 1,
+            "title": "Test Photo",
+            "url": "https://test/url",
+            "thumbnailUrl": "https://test/thumbnalie"
+        }
+    )
+
+
+@pytest.fixture
+def photo_after_patch() -> Photo:
+    yield Photo.from_response_json(
+        {
+            "albumId": 1,
+            "id": 1,
+            "title": "Test Photo",
+            "url": "https://test/url",
+            "thumbnailUrl": "https://via.placeholder.com/150/92c952"
+        }
+    )
+

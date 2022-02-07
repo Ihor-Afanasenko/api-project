@@ -21,6 +21,14 @@ class PostsService(Singleton):
             (get(url=f"{self.__config.host}/posts/{post_id}/comments")).json()[comment_id - 1]
         )
 
+    def get_post_message_comment_by_id_and_position(self, post_id: int, position: int) -> Comment:
+        return Comment.from_response_json(
+            (get(url=f"{self.__config.host}/comments?postId={post_id}")).json()[position - 1]
+        )
+
+    def get_post_message_comments_status_code(self, post_id: int) -> int:
+        return get(url=f"{self.__config.host}/posts/{post_id}/comments").status_code
+
     def add_new_post_message(self, title: str, body: str, userId: int) -> PostMessage:
         data = {}
         data.setdefault("title", title)
