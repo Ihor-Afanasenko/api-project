@@ -1,0 +1,7 @@
+sudo -i -u postgres psql
+# Create DB
+create database test_result;
+# Switch to database
+\c test_result
+# Create table
+create table test_result(id varchar(36) primary key not null unique, name varchar(128) not null, result varchar(20) not null, date_created timestamp not null, type varchar(12) not null, duration float, log text, std_error text, std_out text);

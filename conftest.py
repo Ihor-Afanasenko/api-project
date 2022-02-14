@@ -3,11 +3,25 @@ import pytest
 from core import Config
 from core import PostMessage, Comment, Photo
 from services import PostsService, PhotoService
+from core.domain import Result
+from core.infrastructure.repositories import TestResultRepository
+
+results=[]
 
 
-@pytest.fixture
-def config():
+@pytest.fixture(scope='session')
+def config(test_result_repository):
     yield Config()
+    test_result_repository.save_all(
+        Result.from_test_reports(
+            results, 'API'
+        )
+    )
+
+
+@pytest.fixture(scope='session')
+def test_result_repository() -> TestResultRepository:
+    yield TestResultRepository()
 
 
 @pytest.fixture
@@ -148,3 +162,10 @@ def photo_after_patch() -> Photo:
         }
     )
 
+
+@pytest.hookimpl(tryfirst=True, hookwrapper=True)
+def pytest_runtest_makereport(item, call):
+    outcome = yield
+    result = outcome.get_result()
+    if result.when == 'call':
+        results.append(result)
