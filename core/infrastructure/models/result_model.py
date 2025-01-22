@@ -2,7 +2,7 @@ from sqlalchemy import DATETIME, FLOAT, TEXT, VARCHAR, Column
 from .base_model import Base
 
 
-class TestResult(Base):
+class ResultModel(Base):
     __tablename__ = "test_result"
 
     id = Column(VARCHAR(36), primary_key=True)

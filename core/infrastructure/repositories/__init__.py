@@ -1,2 +1,2 @@
 from .base_repository import BaseRepository
-from .test_result_repository import TestResultRepository
+from .result_repository import ResultRepository

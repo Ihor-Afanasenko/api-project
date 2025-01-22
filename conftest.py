@@ -4,7 +4,7 @@ from core import Config
 from core import PostMessage, Comment, Photo
 from services import PostsService, PhotoService
 from core.domain import Result
-from core.infrastructure.repositories import TestResultRepository
+from core.infrastructure.repositories import ResultRepository
 
 results=[]
 
@@ -20,8 +20,8 @@ def config(test_result_repository):
 
 
 @pytest.fixture(scope='session')
-def test_result_repository() -> TestResultRepository:
-    yield TestResultRepository()
+def test_result_repository() -> ResultRepository:
+    yield ResultRepository()
 
 
 @pytest.fixture
